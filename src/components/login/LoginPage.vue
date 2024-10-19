@@ -1,7 +1,7 @@
 <script setup>
-import LoginPage from './components/login/LoginBody.vue'
-import LoginHeader from './components/login/LoginHeader.vue'
-import LoginFooter  from './components/login/LoginFooter.vue'
+import LoginBody from './LoginBody.vue'
+import LoginHeader from './LoginHeader.vue'
+import LoginFooter  from './LoginFooter.vue'
 </script>
 
 <template>
@@ -17,7 +17,7 @@ import LoginFooter  from './components/login/LoginFooter.vue'
 
   <div class="fixed left-0 right-0 top-0 w-screen h-screen bg-white">
     <LoginHeader class="fixed left-0 right-0 top-0 w-full z-10" />
-    <LoginPage class="h-full" />
+    <LoginBody class="h-full" />
     <LoginFooter class="flex-shrink-0" />
   </div>
 

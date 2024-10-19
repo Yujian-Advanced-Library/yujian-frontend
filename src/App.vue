@@ -1,13 +1,10 @@
 <script setup>
-import LoginPage from './components/login/LoginBody.vue'
-import LoginHeader from './components/login/LoginHeader.vue'
-import LoginFooter  from './components/login/LoginFooter.vue'
+import LoginPage from './components/login/LoginPage.vue'
 </script>
 
 <template>
 
-
-
+    <LoginPage/>
 
 </template>
 

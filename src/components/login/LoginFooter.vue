@@ -1,5 +1,5 @@
 <template>
-    <footer class="fixed bottom-0 w-full bg-white p-10 flex justify-center">
+    <footer class="fixed bottom-0 w-full bg-white p-10 flex justify-evenly">
         <ul class="list-none m-0 p-0 flex">
             <li class="mr-2">
                 <a href="#AboutUs" class="block font-bold text-black text-center px-4 py-2 hover:bg-antiquewhite">关于我们</a>
