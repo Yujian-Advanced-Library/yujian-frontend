@@ -15,10 +15,10 @@ import LoginFooter  from './LoginFooter.vue'
 
 
 
-  <div class="fixed left-0 right-0 top-0 w-screen h-screen bg-white">
-    <LoginHeader class="fixed left-0 right-0 top-0 w-full z-10" />
+  <div class="w-screen h-screen bg-white">
+    <LoginHeader class="fixed w-full top-0" />
     <LoginBody class="h-full" />
-    <LoginFooter class="flex-shrink-0" />
+    <LoginFooter class="flex-shrink-0 fixed w-full bottom-0 " />
   </div>
 
 
