@@ -1,0 +1,545 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遇"荐"</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: antiquewhite;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: white;
+            padding-left: 5vw;
+            height: 12vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        header ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: absolute;
+            top: 15%;
+            margin-left: 20vw;
+            z-index: 100;
+        }
+
+        .name {
+            position: absolute;
+            top: 15%;
+        }
+
+        .name h1 {
+            font-size: 1.2vw;
+            color: black;
+        }
+
+        .name h2 {
+            font-size: 1vw;
+            color: darkgrey;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 2.5vh 2vw;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: antiquewhite;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            top: 25%;
+        }
+
+        .search-input {
+            flex: 1;
+            border: 0.2vw solid #ccc;
+            border-radius: 0.4vw;
+            font-size: 1vw;
+            background-color: white;
+            background-image: url('https://static.jyshare.com/images/mix/searchicon.png');
+            background-position: 1.2vh 0.7vw;
+            background-repeat: no-repeat;
+            padding: 1.5vh 1.5vw 1.5vh 4vw;
+            margin-left: 40vw;
+        }
+
+        .button {
+            display: inline-block;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            border-radius: 1vw;
+            padding: 1.2vh 1vw;
+        }
+
+        .button1 {
+            font-size: 1vw;
+            color: black;
+            background-color: white;
+            border: 0.2vw solid #ccc;
+            box-shadow: 0 0.4vw #999;
+        }
+
+        .button1:hover {
+            background-color: antiquewhite;
+        }
+
+        .button1:active {
+            background-color: antiquewhite;
+            box-shadow: 0 0.4vw #666;
+            transform: translateY(0.4vw);
+        }
+
+        .button2 {
+            font-size: 1vw;
+            width: 6vw;
+            transition: all 0.5s;
+            margin: 0.4vw;
+            color: white;
+            border: none;
+            float: right;
+            position: relative;
+            top: 25%;
+        }
+
+        .button2 span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .button2 span:after {
+            content: '»';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -1.5vw;
+            transition: 0.5s;
+        }
+
+        .button2:hover span {
+            padding-right: 1.5vw;
+        }
+
+        .button2:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+        .button3 {
+            background-color: darksalmon;
+            margin-right: 5vw;
+        }
+
+        .button4 {
+            background-color: darkorange;
+        }
+
+        footer {
+            background-color: white;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 1vh 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        footer ul {
+            list-style-type: none;
+            margin: auto;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            flex: 1;
+            overflow-y: auto;
+            background: white;
+            width: 55vw;
+            height: 550px;
+            margin: 10px auto 90px auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .newul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .newul .newli {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            float: none;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 100px;
+        }
+
+        #PageNums button {
+            margin: 0 5px;
+        }
+
+        #PageNums button:hover {
+            background-color: lightgrey;
+            border: white;
+        }
+
+        .sidebar {
+            flex: 1;
+            overflow-y: auto;
+            width: 6.5vw;
+            background-color: rgba(51, 51, 51, 0.9);
+            color: white;
+            padding : 15px;
+            position: fixed;
+            height: 100%;
+            padding-top: 13vh;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 10px;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .rightbar {
+            flex: 1;
+            overflow-y: auto;
+            width: 10vw;
+            background-color: white;
+            color: black;
+            padding: 15px;
+            position: fixed;
+            height: auto;
+            padding-top: 13vh;
+            right: 0;
+        }
+
+        .rightbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .rightbar a {
+            color: black;
+            text-decoration: none;
+            display: block;
+            padding: 15px 15px;
+            font-size: 25px;
+        }
+
+        .rightbar a:hover {
+            background-color: wheat;
+            border-radius: 1vw;
+        }
+
+        .rightbar b {
+            color: black;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+        }
+
+        .stats {
+            display: flex;
+            align-items: center;
+            color: grey;
+        }
+
+        .stat {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .liked {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <div class="name">
+        <h1>遇“荐”</h1>
+        <h2>图 书 馆 阅 读 互 动 平 台</h2>
+    </div>
+    <ul>
+        <li><a href="#PlatformHomepage">平台首页</a></li>
+        <li><a href="#Forum">论坛</a></li>
+    </ul>
+    <form class="search-form">
+        <input class="search-input" type="text" name="search" placeholder="输入关键词搜索...">
+        <button class="button button1">Search</button>
+    </form>
+    <button class="button button2 button3"><span>注册</span></button>
+    <button class="button button2 button4"><span>登录</span></button>
+</header>
+<div class="sidebar">
+    <h3 style="margin-left: 20%;">分类</h3>
+    <a href="#section1">人文社科</a>
+    <a href="#section2">经济管理</a>
+    <a href="#section3">科技科普</a>
+    <a href="#section4">计算机与互联网</a>
+    <a href="#section5">成功励志</a>
+    <a href="#section6">生活</a>
+    <a href="#section7">少儿</a>
+    <a href="#section8">艺术设计</a>
+    <a href="#section9">漫画绘本</a>
+    <a href="#section10">教育考试</a>
+    <a href="#section11">杂志</a>
+    <a href="#section12">文学</a>
+</div>
+<div class="container">
+    <ul class="newul" id="BookList"></ul>
+    <div class="pagination">
+        <button id="LastBtn">上一页</button>
+        <div id="PageNums"></div>
+        <button id="NextBtn">下一页</button>
+        <span id="PageInfo"></span>
+    </div>
+</div>
+<div class="rightbar" style="background: rgba(0, 0, 0, 0); margin-top: 1%;">
+    <a href="#publish"><i class="fas fa-plus-circle" style="cursor: pointer; margin-right: 5px;"></i>发表</a>
+</div>
+<div class="rightbar" style="margin-top: 30vh; padding-top: 0;">
+    <b>热门阅读</b>
+    <div style="display: flex; align-items: center;">
+        <b style="color: gold;">1</b>
+        <p style="color: grey; font-size: 15px;" href="#section1">标题一</p>
+    </div>
+    <div style="display: flex; align-items: center;">
+        <b style="color: silver;">2</b>
+        <p style="color: grey; font-size: 15px;" href="#section2">标题二</p>
+    </div>
+    <div style="display: flex; align-items: center;">
+        <b style="color: coral;">3</b>
+        <p style="color: grey; font-size: 15px;" href="#section3">标题三</p>
+    </div>
+    <div style="display: flex; align-items: center;">
+        <b>4</b>
+        <p style="color: grey; font-size: 15px;" href="#section4">标题四</p>
+    </div>
+    <div style="display: flex; align-items: center;">
+        <b>5</b>
+        <p style="color: grey; font-size: 15px;" href="#section5">标题五</p>
+    </div>
+</div>
+<footer>
+    <ul>
+        <li><a href="#AboutUs">关于我们</a></li>
+        <li><a href="#ContactUs">联系我们</a></li>
+        <li><a href="#HelpCenter">帮助中心</a></li>
+        <li><a href="#PrivacyPolicy">隐私条款</a></li>
+        <li><a href="#UserAgreement">用户协议</a></li>
+        <li><a href="#MerchantCooperation">商家合作</a></li>
+    </ul>
+</footer>
+<script>
+    const items = [
+    {
+        title: "标题",
+        cover: "cover1.jpg",
+        description: "简介",
+        name: "楼主",
+        date: "发布日期",
+        commentCount: 12,
+        likeCount: 20,
+        readCount: 100
+    },
+    {
+        title: "标题",
+        cover: "cover1.jpg",
+        description: "简介",
+        name: "楼主",
+        date: "发布日期",
+        commentCount: 12,
+        likeCount: 20,
+        readCount: 100
+    },
+    {
+        title: "标题",
+        cover: "cover1.jpg",
+        description: "简介",
+        name: "楼主",
+        date: "发布日期",
+        commentCount: 12,
+        likeCount: 20,
+        readCount: 100
+    },
+    {
+        title: "标题",
+        cover: "cover1.jpg",
+        description: "简介",
+        name: "楼主",
+        date: "发布日期",
+        commentCount: 12,
+        likeCount: 20,
+        readCount: 100
+    },
+    {
+        title: "标题",
+        cover: "cover1.jpg",
+        description: "简介",
+        name: "楼主",
+        date: "发布日期",
+        commentCount: 12,
+        likeCount: 20,
+        readCount: 100
+    },
+    {
+        title: "标题",
+        cover: "cover1.jpg",
+        description: "简介",
+        name: "楼主",
+        date: "发布日期",
+        commentCount: 12,
+        likeCount: 20,
+        readCount: 100
+    },
+    // 实际需从数据库导入帖子信息...
+    ];
+    const NumPerPage = 5;
+    let CurrentPage = 1;
+
+    function renderList() {
+        const BookList = document.getElementById('BookList');
+        BookList.innerHTML = '';
+
+        const start = (CurrentPage - 1) * NumPerPage;
+        const end = start + NumPerPage;
+        const PaginatedItems = items.slice(start, end);
+
+        PaginatedItems.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <div style="position: relative; margin-right: 10px;">
+                    <img src="${item.cover}" style="width: auto; height: 150px;"/>
+                </div>
+                <div>
+                    <h3>${item.title}</h3>
+                    <p>${item.description}</p><br>
+                    <p>
+                        <div class ="stats">
+                            <p style="margin-right: 50px;">${item.name}</p>
+                            <p style="margin-right: 100px;">${item.date}</p>
+                            <i class ="fas fa-eye" style="cursor: pointer; margin-right: 5px;"></i> ${item.readCount}   |
+                            <i class ="fas fa-comment" style="cursor: pointer; margin-right: 5px; margin-left: 10px;" onclick="alert('评论数: ${item.commentCount}')"></i> ${item.commentCount}   |
+                                <div class ="stat" onclick="toggleLike(this)">
+                                    <i class ="fas fa-thumbs-up" style="cursor: pointer; margin-right: 5px; margin-left: 10px;"></i>
+                                    <span class ="likeCount">${item.likeCount}</span>
+                                </div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+            `;
+            li.classList.add('newli');
+            BookList.appendChild(li);
+        });
+
+        document.getElementById('PageInfo').textContent = `第 ${CurrentPage} 页`;
+        document.getElementById('LastBtn').disabled = CurrentPage === 1;
+        document.getElementById('NextBtn').disabled = CurrentPage === Math.ceil(items.length / NumPerPage);
+
+        const PageNums = document.getElementById('PageNums');
+        PageNums.innerHTML = '';
+        const TotalPages = Math.ceil(items.length / NumPerPage);
+        const range = 2;
+        const StartPage = Math.max(1, CurrentPage - range);
+        const EndPage = Math.min(TotalPages, CurrentPage + range);
+
+        for (let i = StartPage; i <= EndPage; i++) {
+            const button = document.createElement('button');
+            button.textContent = i;
+            button.onclick = () => {
+                CurrentPage = i;
+                renderList();
+                BookList.scrollIntoView({ behavior: 'smooth' });
+            };
+            
+        PageNums.appendChild(button);
+        }
+    }
+
+    document.getElementById('LastBtn').addEventListener('click', () => {
+        if (CurrentPage > 1) {
+            CurrentPage--;
+            renderList();
+            BookList.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+
+    document.getElementById('NextBtn').addEventListener('click', () => {
+        if (CurrentPage < Math.ceil(items.length / NumPerPage)) {
+            CurrentPage++;
+            renderList();
+            BookList.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+
+    renderList();
+    BookList.scrollIntoView({ behavior: 'smooth' });
+
+    function toggleLike(element) {
+        const icon = element.querySelector('i');
+        const likeCount = element.querySelector('.likeCount');
+        let count = parseInt(likeCount.textContent);
+        icon.classList.toggle('liked');
+        if (icon.classList.contains('liked')) {
+            count += 1;
+        } else {
+            count -= 1; 
+        }
+        likeCount.textContent = count;
+    }
+</script>
+</body>
+
+</html>

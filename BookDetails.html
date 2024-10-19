@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遇"荐"</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: antiquewhite;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: white;
+            padding-left: 5vw;
+            height: 12vh;
+            position: relative;
+        }
+
+        header ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: absolute;
+            top: 15%;
+            margin-left: 20vw;
+            z-index: 100;
+        }
+
+        .name {
+            position: absolute;
+            top: 15%;
+        }
+
+        .name h1 {
+            font-size: 1.2vw;
+            color: black;
+        }
+
+        .name h2 {
+            font-size: 1vw;
+            color: darkgrey;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 2.5vh 2vw;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: antiquewhite;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            top: 25%;
+        }
+
+        .search-input {
+            flex: 1;
+            border: 0.2vw solid #ccc;
+            border-radius: 0.4vw;
+            font-size: 1vw;
+            background-color: white;
+            background-image: url('https://static.jyshare.com/images/mix/searchicon.png');
+            background-position: 1.2vh 0.7vw;
+            background-repeat: no-repeat;
+            padding: 1.5vh 1.5vw 1.5vh 4vw;
+            margin-left: 40vw;
+        }
+
+        .button {
+            display: inline-block;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            border-radius: 1vw;
+            padding: 1.2vh 1vw;
+        }
+
+        .button1 {
+            font-size: 1vw;
+            color: black;
+            background-color: white;
+            border: 0.2vw solid #ccc;
+            box-shadow: 0 0.4vw #999;
+        }
+
+        .button1:hover {
+            background-color: antiquewhite;
+        }
+
+        .button1:active {
+            background-color: antiquewhite;
+            box-shadow: 0 0.4vw #666;
+            transform: translateY(0.4vw);
+        }
+
+        .button2 {
+            font-size: 1vw;
+            width: 6vw;
+            transition: all 0.5s;
+            margin: 0.4vw;
+            color: white;
+            border: none;
+            float: right;
+            position: relative;
+            top: 25%;
+        }
+
+        .button2 span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .button2 span:after {
+            content: '»';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -1.5vw;
+            transition: 0.5s;
+        }
+
+        .button2:hover span {
+            padding-right: 1.5vw;
+        }
+
+        .button2:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+        .button3 {
+            background-color: darksalmon;
+            margin-right: 5vw;
+        }
+
+        .button4 {
+            background-color: darkorange;
+        }
+
+        footer {
+            background-color: white;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 1vh 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        footer ul {
+            list-style-type: none;
+            margin: auto;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /*页面主体内容*/
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .book-details, .comments, .recommendations, .related-posts {
+            background-color: white;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 300px;
+            max-width: calc(50% - 10px);
+        }
+
+        .book-details {
+            background-color: white;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        h2, h3 {
+            color: #333;
+        }
+
+        img {
+            width: 50%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        p, h2, h3, ul {
+            text-align: center;
+        }
+
+        .rating {
+            color: gold;
+        }
+
+        .comment {
+            margin-bottom: 20px;
+        }
+
+        .like, .dislike {
+            cursor: pointer;
+            padding: 5px 10px;
+            margin-right: 10px;
+        }
+
+        .active-like {
+            color: #ff8c00; /* 点赞激活的颜色 */
+        }
+
+        .active-dislike {
+            color: #808080; /* 踩激活的颜色 */
+        }
+
+        #submitComment {
+            padding: 5px 10px; /* 按钮内边距 */
+            background-color: orange; /* 按钮背景颜色 */
+            color: white; /* 按钮文字颜色 */
+            border: none; /* 无边框 */
+            border-radius: 5px; /* 圆角边框 */
+            cursor: pointer; /* 鼠标悬停时显示指针 */
+            font-size: 16px; /* 文字大小 */
+            transition: background-color 0.3s ease; /* 过渡效果 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+            outline: none; /* 移除焦点时的轮廓线 */
+        }
+
+            #submitComment:hover {
+                background-color: darkorange; /* 悬停时的背景颜色 */
+            }
+
+            #submitComment:active {
+                box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* 点击时的阴影效果 */
+            }
+        /* 基础样式 */
+        .text-box {
+            padding: 10px; /* 文本框内边距 */
+            border: 2px solid #ccc; /* 边框颜色 */
+            border-radius: 5px; /* 圆角边框 */
+            font-size: 16px; /* 文字大小 */
+            width: 300px; /* 文本框宽度，根据需要调整 */
+            transition: border-color 0.3s ease; /* 平滑过渡效果 */
+        }
+
+            /* 焦点状态 */
+            .text-box:focus {
+                border-color: #4CAF50; /* 焦点时的边框颜色 */
+                outline: none; /* 移除默认的焦点轮廓线 */
+                box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); /* 焦点时的阴影效果 */
+            }
+
+            /* 占位符样式 */
+            .text-box::placeholder {
+                color: #aaa; /* 占位符文字颜色 */
+                font-style: italic; /* 占位符文字样式 */
+            }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="name">
+        <h1>遇“荐”</h1>
+        <h2>图 书 馆 阅 读 互 动 平 台</h2>
+    </div>
+    <ul>
+        <li><a href="#PlatformHomepage">平台首页</a></li>
+        <li><a href="#Forum">论坛</a></li>
+    </ul>
+    <form class="search-form">
+        <input class="search-input" type="text" name="search" placeholder="输入关键词搜索...">
+        <button class="button button1">Search</button>
+    </form>
+    <button class="button button2 button3"><span>注册</span></button>
+    <button class="button button2 button4"><span>登录</span></button>
+</header>
+ <p>
+ </p>
+<div class="container">
+        <div class="book-details">
+            <h3>示例书籍</h3>
+            <img src="cover1.jpg"  alt="#" >
+            <p style="text-align: left">教师评语：</p>
+            <p style="text-align: left">分数：<span class="rating">★★★★★</span></p>
+            <p style="text-align: left">作品简介：《背影》是中国现代作家朱自清于1925年创作的回忆性散文。</p>
+        </div>
+
+        <div class="comments">
+            <h3>全部书评</h3>
+            <div id="comments">
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <form id="commentForm" >
+                <textarea id="commentBox" name="comment" class="text-box" placeholder="写下你的评论..."></textarea><br>
+                <button type="button" id="submitComment">发布评论</button>
+            </form>
+        </div>
+
+        <div class="recommendations">
+            <h3>主题推荐</h3>
+            <ul>
+                <li>书籍1</li>
+                <li>书籍2</li>
+                <!-- More recommendations here -->
+            </ul>
+        </div>
+
+        <div class="related-posts">
+            <h3>相关帖子推荐</h3>
+            <ul>
+                <li>帖子1</li>
+                <li>帖子2</li>
+                <!-- More posts here -->
+            </ul>
+        </div>
+    </div>
+<footer>
+    <ul>
+        <li><a href="#AboutUs">关于我们</a></li>
+        <li><a href="#ContactUs">联系我们</a></li>
+        <li><a href="#HelpCenter">帮助中心</a></li>
+        <li><a href="#PrivacyPolicy">隐私条款</a></li>
+        <li><a href="#UserAgreement">用户协议</a></li>
+        <li><a href="#MerchantCooperation">商家合作</a></li>
+    </ul>
+</footer>
+<script>
+    document.getElementById('submitComment').onclick = function () {
+        var comment = document.getElementById('commentBox').value;
+        if (comment.trim() === '') {
+            alert('评论不能为空！');
+            return;
+        }
+
+        var commentsDiv = document.getElementById('comments');
+        var newComment = document.createElement('div');
+        newComment.className = 'comment';
+        newComment.innerHTML = comment + ' <span class="like" onclick="toggleLike(this)">赞</span> <span class="dislike" onclick="toggleDislike(this)">踩</span>';
+        commentsDiv.appendChild(newComment);
+        document.getElementById('commentBox').value = '';
+    };
+
+    function toggleLike(element) {
+        // 移除踩的激活状态
+        var dislikes = element.parentNode.getElementsByClassName('dislike');
+        for (var i = 0; i < dislikes.length; i++) {
+            dislikes[i].classList.remove('active-dislike');
+        }
+        // 切换点赞的激活状态
+        element.classList.toggle('active-like');
+    }
+
+    function toggleDislike(element) {
+        // 移除点赞的激活状态
+        var likes = element.parentNode.getElementsByClassName('like');
+        for (var i = 0; i < likes.length; i++) {
+            likes[i].classList.remove('active-like');
+        }
+        // 切换踩的激活状态
+        element.classList.toggle('active-dislike');
+    }
+</script>
+</body>
+
+</html>
