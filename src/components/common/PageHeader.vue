@@ -1,6 +1,6 @@
 <template>
-  <header>
-    <nav class="bg-white shadow-md px-4 py-2 flex justify-between items-center">
+  <header class="bg-amber-100">
+    <nav class="shadow-md px-4 py-2 flex justify-between items-center">
       <!-- icon -->
       <div class="flex flex-col items-left">
         <h1 class="ml-2 text-3xl text-black font-bold">遇 “荐”</h1>

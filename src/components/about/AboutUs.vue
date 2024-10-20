@@ -1,7 +1,5 @@
 ﻿<script setup>
 
-import from './components/login/LoginPage.vue'
-
 function showContent(content, element) {
   document.getElementById('ContentDisplay').innerText = content;
   const navItems = document.querySelectorAll('.sidebar-item');
@@ -13,44 +11,25 @@ function showContent(content, element) {
 </script>
 
 <template>
-  <header>
-    <div class="name">
-      <h1>遇“荐”</h1>
-      <h2>图 书 馆 阅 读 互 动 平 台</h2>
+
+  <div class="flex flex-row bg-orange-100">
+    <div class="basis-5/6 bg-blue-300">
+      关于我们
     </div>
-    <ul>
-      <li><a href="#PlatformHomepage">平台首页</a></li>
-      <li><a href="#Forum">论坛</a></li>
-    </ul>
-    <form class="search-form">
-      <input class="search-input" name="search" placeholder="输入关键词搜索..." type="text">
-      <button class="button button1">Search</button>
-    </form>
-    <button class="button button2 button3"><span>注册</span></button>
-    <button class="button button2 button4"><span>登录</span></button>
-  </header>
-  <div class="sidebar">
-    <h3 style="margin-top: 0; margin-left: 0.3vw;">关于我们</h3>
-    <a class="sidebar-item" herf="#TeamProfile" onclick="showContent('内容一', this)">团队简介</a>
-    <a class="sidebar-item" herf="#Merchantcooperation" onclick="showContent('内容二', this)">商家合作</a>
-    <a class="sidebar-item" herf="#ContactUs" onclick="showContent('内容三', this)">联系我们</a>
-    <a class="sidebar-item" herf="#Suggestion" onclick="showContent('内容四', this)">建议反馈</a>
-    <h3 style="margin-top: 5vh; margin-left: 0.3vw;">帮助中心</h3>
-    <a class="sidebar-item" herf="#CommonProblem" onclick="showContent('内容五', this)">常见问题</a>
-    <a class="sidebar-item" href="#PrivacyPolicy" onclick="showContent('内容六', this)">隐私条款</a>
-    <a class="sidebar-item" href="#UserAgreement" onclick="showContent('内容七', this)">用户协议</a>
+
+    <div class="basis-1/6 bg-blue-800 flex flex-col">
+      导航栏
+      <a href="#TeamProfile" onclick="showContent('内容一', this)">团队简介</a>
+      <a href="#Merchantcooperation" onclick="showContent('内容二', this)">商家合作</a>
+      <a href="#ContactUs" onclick="showContent('内容三', this)">联系我们</a>
+      <a href="#Suggestion" onclick="showContent('内容四', this)">建议反馈</a>
+      <a href="#CommonProblem" onclick="showContent('内容五', this)">常见问题</a>
+      <a href="#PrivacyPolicy" onclick="showContent('内容六', this)">隐私条款</a>
+      <a href="#UserAgreement" onclick="showContent('内容七', this)">用户协议</a>
+    </div>
+
   </div>
-  <div id="ContentDisplay" class="content">你好</div>
-  <footer>
-    <ul>
-      <li><a href="#AboutUs">关于我们</a></li>
-      <li><a href="#ContactUs">联系我们</a></li>
-      <li><a href="#HelpCenter">帮助中心</a></li>
-      <li><a href="#PrivacyPolicy">隐私条款</a></li>
-      <li><a href="#UserAgreement">用户协议</a></li>
-      <li><a href="#MerchantCooperation">商家合作</a></li>
-    </ul>
-  </footer>
+
 </template>
 
 

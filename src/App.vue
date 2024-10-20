@@ -5,8 +5,8 @@ import PageFooter from "./components/common/PageFooter.vue";
 
 <template>
   <div class="flex flex-col w-screen h-screen bg-white">
-    <PageHeader class="w-full border-b border-gray-300"/>
+    <PageHeader class="w-full border-b"/>
     <RouterView class="flex-grow"/>
-    <PageFooter class="w-full border-t border-gray-300"/>
+    <PageFooter class="w-full bottom-0 border-t"/>
   </div>
 </template>
