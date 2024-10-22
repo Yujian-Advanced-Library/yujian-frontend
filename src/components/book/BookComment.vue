@@ -2,45 +2,31 @@
 import PageIndex from "@/components/common/PageIndex.vue";
 import RatingStar from "@/components/common/RatingStar.vue";
 import SubmitButton from "@/components/common/SubmitButton.vue";
+import {ref} from "vue";
 
-// const stars = document.querySelectorAll('#rating button');
-//
-// stars.forEach((star, index) => {
-//   star.addEventListener('mouseover', () => {
-//     stars.forEach((s, i) => {
-//       if (i <= index) {
-//         s.classList.add('text-yellow-500');
-//       } else {
-//         s.classList.remove('text-yellow-500');
-//       }
-//     });
-//   });
-//
-//   star.addEventListener('mouseout', () => {
-//     stars.forEach((s, i) => {
-//       s.classList.remove('text-yellow-500');
-//     });
-//   });
-//
-//   star.addEventListener('click', () => {
-//     stars.forEach((s, i) => {
-//       if (i <= index) {
-//         s.classList.add('text-yellow-500');
-//       } else {
-//         s.classList.remove('text-yellow-500');
-//       }
-//     });
-//   });
-// });
+// 评论内容控制
+const reviewText = ref('');
+
+
+// todo 添加提交书评的逻辑，例如发送到服务器
+const submitReview = (reviewText) => {
+  alert('提交: ' + reviewText);
+};
+
+
 </script>
 
 <template>
 
-  <div class="mt-10 w-1/2 flex flex-col">
-
+  <div class="w-1/2 flex flex-col">
     <!-- 标题    -->
     <div class="flex flex-row">
-      <span class="font-bold text-green-500 text-lg basis-3/4">短评 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·</span>
+      <div class="text-lg basis-3/4 flex flex-row">
+        <h2 class="font-bold text-green-500 ">
+          短评 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+        </h2>
+        <div class="ml-2.5 italic text-blue-400">(65条短评)</div>
+      </div>
       <!--分页-->
       <PageIndex/>
     </div>
@@ -82,25 +68,23 @@ import SubmitButton from "@/components/common/SubmitButton.vue";
       <br>
     </ul>
 
-    <div class="border-t w-1/2 pt-2 flex flex-col">
+    <div class="w-1/2 pt-2 flex flex-col">
       <textarea
+          v-model="reviewText"
           class=" mt-1 px-3 py-2 text-base text-gray-700 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:shadow-outline"
           placeholder="请输入您的书评..."
           rows="3"
       ></textarea>
       <div class="grid grid-cols-8">
         <div class="col-span-6 flex flex-row">
-          <span class="text-lg">您的评价是:</span>
+          <span class="text-lg mr-1">您的评价是:</span>
           <RatingStar/>
         </div>
-        <div class="col-span-2 flex flex-row-reverse">
-          <SubmitButton/>
+        <div class="col-span-2 mt-1 flex flex-row-reverse">
+          <SubmitButton :review-text="reviewText" @submit="submitReview"/>
         </div>
       </div>
-
     </div>
-
-
   </div>
 
 
