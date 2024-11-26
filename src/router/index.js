@@ -21,11 +21,34 @@ const router = createRouter({
             }
         },
         {
-            path: '/about',
+            path: '/about/',
             name: 'about',
-            component: () => import('@/components/about/AboutUs.vue'), // 懒加载
+            component: () => import('@/components/about/AboutPage.vue'), // 懒加载
             meta: {
                 title: '关于我们'
+            },
+            children: [
+                {path: 'intro', component: () => import('@/components/about/TeamIntro.vue')},
+                {path: 'contact', component: () => import('@/components/about/Contact.vue')},
+                {path: 'announcement', component: () => import('@/components/about/Announcement.vue')},
+                {path: 'feedback', component: () => import('@/components/about/Feedback.vue')},
+                {path: 'help-center', component: () => import('@/components/about/Faq.vue')},
+                {path: 'faq', component: () => import('@/components/about/Faq.vue')},
+                {path: 'service-agreement', component: () => import('@/components/about/ServiceAgreement.vue')},
+                {path: 'privacy', component: () => import('@/components/about/PrivacyPolicy.vue')},
+            ],
+        },
+        {
+            path: '/book/:id',
+            name: 'book',
+            component: () => import('@/components/book/BookDetail.vue'),
+        },
+        {
+            path: '/forum',
+            name: 'forum',
+            component: () => import('@/components/forum/Forum.vue'),
+            meta: {
+                title: '论坛'
             }
         },
         {
